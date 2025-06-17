@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+@theme {
+  --color-nav-bg-desktop: #a50a50;
+  --color-nav-bg-mobile:  #333333;
+  --color-btn-active: #cebe2e;
+}
+
+@layer base {
+  body {
+    @apply text-gray-800 bg-gray-100 font-sans;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply cursor-pointer;
+  }
+
+  .btn__text {
+    @apply text-sm lg:text-base font-medium;
+  }
+
+  .btn_active {
+  @apply cursor-pointer;
+  }
+}
