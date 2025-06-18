@@ -39,8 +39,8 @@
         >
         <div class="py-1">
           <MenuItem
-            v-for="(item, key) in menuItemList"
-            :key="key" 
+            v-for="item in menuItemList"
+            :key="item.id" 
             as="div"
             class="
               cursor-pointer
