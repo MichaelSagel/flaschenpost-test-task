@@ -2,10 +2,11 @@
   <div>
     <FilterMenu
       :disabled="isLoading"
-      :is-filter-activ="isFilterActiv"
+      :is-filter-activ
+      :active-sort-order
       @filter-per-price="isFilterActiv = !isFilterActiv; loadProductList()"
       @sort-product-data="sortProductData($event); loadProductList()"
-      @changeView="showOnlyBottle = !showOnlyBottle"
+      @changeView="compactView = !compactView"
     />
 
   <div class="p-2 grid gap-[10px] grid-cols-[repeat(auto-fill,minmax(200px,1fr))]">
@@ -14,7 +15,7 @@
       :key="productItem.id"
       class="border rounded-lg p-4 shadow bg-white flex flex-col gap-2 "
       :product="productItem"
-      :show-only-bottle="showOnlyBottle"
+      :show-only-bottle="compactView"
     />
   </div>
   </div>
@@ -25,37 +26,31 @@ import {
   ref,
   shallowRef
 } from 'vue';
-import ProductAreaItem from '@/pages/product-area/product-area-item.vue'
-import type { ProductList } from './product-area';
+import ProductAreaItem from '@/components/product-area-item/product-area-item.vue'
+import type { TProductList } from './product-area';
 import {
   getProductData,
-  type ProductQuery
+  type TProductQuery
 } from '@/api/productService.ts';
 import FilterMenu from '@/components/filter-menu/filter-menu.vue'
 import type { TMenuItemMap } from '@/components/fp-dropdown/fp-dropdown';
 
-const showOnlyBottle = shallowRef(false)
-const activeSortOrder = shallowRef<ProductQuery["sortOrder"]>(undefined);
+const compactView = shallowRef(false)
+const activeSortOrder = shallowRef<TProductQuery["sortOrder"]>(undefined);
 const isFilterActiv = shallowRef(false);
 
-const productList = ref<ProductList>([])
+const productList = ref<TProductList>([])
 
 const isLoading = shallowRef(false);
 function loadProductList() {
   isLoading.value = true;
 
-  let productQuery: ProductQuery = {
+  getProductData({
     onlyCheap: isFilterActiv.value,
-  };
-
-
-  if (activeSortOrder.value !== undefined) {
-    productQuery.sortOrder = activeSortOrder.value;
-  }
-
-  getProductData(productQuery)
+    sortOrder: activeSortOrder.value,
+  })
     .then(data => {
-      productList.value = data
+      productList.value = data.data
     })
     .catch(err => {
       console.error(err)

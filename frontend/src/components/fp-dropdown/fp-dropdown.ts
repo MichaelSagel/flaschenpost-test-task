@@ -1,8 +1,8 @@
-import type { ProductQuery } from "@/api/productService.ts";
+import type { TProductQuery } from "@/api/productService.ts";
 
 export type TMenuItemMap = {
     id: number,
-    sortOrder: NonNullable<ProductQuery["sortOrder"]>,
+    sortOrder: NonNullable<TProductQuery["sortOrder"]>,
 };
 
 export type TFpDropdownMap = {
@@ -10,5 +10,6 @@ export type TFpDropdownMap = {
     menuItemList: TMenuItemMap[],
     textColor?: string,
     disabled?: boolean,
+    activeSortOrder: TProductQuery["sortOrder"],
 };
   

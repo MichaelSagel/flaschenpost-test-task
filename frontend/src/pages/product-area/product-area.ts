@@ -1,4 +1,4 @@
-export type Article = {
+export type TArticle = {
   id: number
   shortDescription: string
   price: number
@@ -7,12 +7,12 @@ export type Article = {
   image: string
 }
 
-export type Product = {
+export type TProduct = {
   id: number
   brandName: string
   name: string
   descriptionText?: string
-  articles: Article[]
+  articles: TArticle[]
 }
 
-export type ProductList = Product[]
+export type TProductList = TProduct[]

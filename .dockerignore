@@ -1,0 +1,24 @@
+# Ignore node_modules for frontend
+frontend/node_modules
+frontend/dist
+
+# Ignore build artifacts
+**/bin/
+**/obj/
+
+# Ignore logs and temp files
+*.log
+*.tmp
+*.swp
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore IDE config
+.vscode/
+.idea/
+
+# Ignore env files (if used)
+*.env
+*.env.*

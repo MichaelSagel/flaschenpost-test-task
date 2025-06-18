@@ -15,6 +15,7 @@
       :disabled
       :menu-title="'Sort'"
       :menu-item-list="sortProductList"
+      :active-sort-order
       @select-dropdown="emit('sortProductData', $event)"
     />
     <FpBtn
@@ -32,18 +33,20 @@
 </template>
 
 <script setup lang="ts">
-import FpBtn from '@/components/fp-btn/fp-btn.vue'
-import FpDropdown from '@/components/fp-dropdown/fp-dropdown.vue'
+import FpBtn from '@/components/fp-btn/fp-btn.vue';
+import FpDropdown from '@/components/fp-dropdown/fp-dropdown.vue';
 import type { TMenuItemMap } from '@/components/fp-dropdown/fp-dropdown.ts';
+import type { TProductQuery } from '@/api/productService.ts';
 
 defineProps<{
-  isFilterActiv?: boolean
-  disabled?: boolean
+  isFilterActiv?: boolean,
+  disabled?: boolean,
+  activeSortOrder: TProductQuery["sortOrder"],
 }>()
 
 const emit = defineEmits<{
-  (e: 'changeView',): void,
-  (e: 'filterPerPrice',): void,
+  (e: 'changeView'): void,
+  (e: 'filterPerPrice'): void,
   (e: 'sortProductData', menuItemMap: TMenuItemMap): void,
 }>()
 

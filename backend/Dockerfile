@@ -1,20 +1,16 @@
-# backend/Dockerfile
-
 # Stage 1: Build
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-# Copy csproj and restore
-COPY backend/*.csproj ./backend/
-RUN dotnet restore backend/*.csproj
+# Copy only the .csproj and restore
+COPY FlaschenpostBackend.csproj .
+RUN dotnet restore FlaschenpostBackend.csproj
 
-# Copy rest of the code
-COPY backend/. ./backend/
-WORKDIR /src/backend
+# Copy everything else and publish
+COPY . .
+RUN dotnet publish FlaschenpostBackend.csproj -c Release -o /app/publish
 
-RUN dotnet publish -c Release -o /app/publish
-
-# Stage 2: Run
+# Stage 2: Runtime
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 COPY --from=build /app/publish .

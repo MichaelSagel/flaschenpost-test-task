@@ -1,14 +1,11 @@
-import axios from 'axios';
-import type { ProductList } from '@/pages/product-area/product-area.ts';
-
-const api = axios.create({
-  baseURL: "http://localhost:5174/api",
-});
+import type { TProductList } from '@/pages/product-area/product-area.ts';
+import { api } from './axios.ts';
+import type { AxiosResponse } from 'axios';
 
 /**
  * Query parameters used to filter or sort products.
  */
-export type ProductQuery = {
+export type TProductQuery = {
   onlyCheap?: boolean;
   sortOrder?: "ascending" | "descending";
 };
@@ -19,9 +16,9 @@ export type ProductQuery = {
  * @param query - Object containing optional `onlyCheap` and `sortOrder` fields
  * @returns List of products from the API
  */
-export async function getProductData(query: ProductQuery = {}): Promise<ProductList> {
-  const response = await api.get<ProductList>("/products", {
+export async function getProductData(query: TProductQuery = {}): Promise<AxiosResponse<TProductList>> {
+  const response = await api.get<TProductList>("/products", {
     params: query,
   });
-  return response.data;
+  return response;
 }

@@ -43,13 +43,14 @@
             :key="key" 
             as="div"
             class="
-              text-gray-900
               cursor-pointer
               px-4
               py-2
               text-sm
               lg:text-base
+            hover:bg-gray-100
             "
+            :class="activeSortOrder === item.sortOrder ? 'text-[var(--color-btn-active)]' : 'text-gray-900'"
             @click="emit('selectDropdown', item)"
           >
           {{ item.sortOrder }}
